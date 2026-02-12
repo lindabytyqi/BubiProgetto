@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>San Valentino</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
 <style>
 html, body {
   margin: 0;
@@ -22,6 +21,7 @@ html, body {
   position: relative;
 }
 
+/* CORDA */
 #rope-container {
   position: absolute;
   top: 0;
@@ -73,7 +73,7 @@ html, body {
   100% { transform: rotate(-45deg) scale(1); }
 }
 
-
+/* BOTTONI */
 #buttons {
   position: absolute;
   inset: 0;
@@ -118,14 +118,14 @@ button {
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
-
+/* CANVAS */
 canvas {
   position: absolute;
   inset: 0;
   display: none;
 }
 
-
+/* IMMAGINE FINALE */
 #final-img {
   position: absolute;
   top: 50%;
@@ -138,7 +138,19 @@ canvas {
   z-index: 2;
 }
 
+/* CUORE TOUCH PER IPHONE */
+#touch-heart {
+  width: 40px;
+  height: 40px;
+  background: #ff4d6d;
+  position: absolute;
+  border-radius: 50%;
+  transform: rotate(-45deg);
+  pointer-events: none;
+  z-index: 9999;
+}
 
+/* MEDIA QUERIES */
 @media screen and (max-width: 480px) {
   #rope { height: 200px; }
   #heart { width: 40px; height: 40px; }
@@ -152,17 +164,17 @@ canvas {
 <body>
 <div id="stage">
 
- 
+  <!-- CORDA -->
   <div id="rope-container">
     <div id="rope"></div>
     <div id="heart"></div>
   </div>
 
-
+  <!-- BOTTONI -->
   <div id="buttons">
     <div id="question">Vuoi essere il mio Valentino?</div>
     <div id="gif-container">
-      <img src="giflove.gif" alt="love gif">
+      <img src="Sanvalentino/gif/giflove.gif" alt="love gif">
     </div>
     <div class="buttons-row">
       <button id="yes">Sì</button>
@@ -170,8 +182,8 @@ canvas {
     </div>
   </div>
 
-
-  <img id="final-img" src="card.png" alt="love image">
+  <!-- IMMAGINE FINALE -->
+  <img id="final-img" src="Sanvalentino/gif/card.png" alt="love image">
   <canvas id="confetti"></canvas>
 
 </div>
@@ -185,6 +197,7 @@ const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
 const finalImg = document.getElementById("final-img");
 
+// Cordina click
 rope.addEventListener("click", () => {
   rope.style.transform = "translateX(-50%) translateY(40px)";
   setTimeout(() => {
@@ -193,14 +206,18 @@ rope.addEventListener("click", () => {
   }, 300);
 });
 
-
+// Bottone NO con limite su mobile
 noBtn.addEventListener("mouseover", () => {
   noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
-  noBtn.style.top = Math.random() * (window.innerHeight - 80) + "px";
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
+  const maxX = window.innerWidth - btnWidth - 10;
+  const maxY = window.innerHeight - btnHeight - 10;
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 });
 
-
+// Bottone SI e coriandoli
 yesBtn.addEventListener("click", () => {
   buttons.style.display = "none";
   canvas.style.display = "block";
@@ -246,6 +263,21 @@ yesBtn.addEventListener("click", () => {
 
   draw();
 });
+
+// CUORE TOUCH PER IPHONE
+if ('ontouchstart' in window) {
+  document.body.addEventListener('touchmove', e => {
+    let heart = document.getElementById('touch-heart');
+    if (!heart) {
+      heart = document.createElement('div');
+      heart.id = 'touch-heart';
+      document.body.appendChild(heart);
+    }
+    const touch = e.touches[0];
+    heart.style.left = touch.pageX - 20 + 'px';
+    heart.style.top = touch.pageY - 20 + 'px';
+  });
+}
 </script>
 </body>
 </html>
