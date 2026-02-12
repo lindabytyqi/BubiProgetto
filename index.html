@@ -13,17 +13,15 @@ html, body {
   font-family: 'Pacifico', cursive;
   background: linear-gradient(to bottom, #ffd1dc, #fff);
   overflow: hidden;
-  cursor: url("Sanvalentino/gif/heart-cursor.png") 16 16, auto;
+  cursor: url("heart-cursor.png") 16 16, auto;
 }
 
-/* STAGE */
 #stage {
   width: 100%;
   height: 100%;
   position: relative;
 }
 
-/* CORDA */
 #rope-container {
   position: absolute;
   top: 0;
@@ -75,7 +73,7 @@ html, body {
   100% { transform: rotate(-45deg) scale(1); }
 }
 
-/* SCHERMATA BOTTONI */
+
 #buttons {
   position: absolute;
   inset: 0;
@@ -120,14 +118,14 @@ button {
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
-/* CANVAS */
+
 canvas {
   position: absolute;
   inset: 0;
   display: none;
 }
 
-/* IMMAGINE FINALE */
+
 #final-img {
   position: absolute;
   top: 50%;
@@ -140,7 +138,7 @@ canvas {
   z-index: 2;
 }
 
-/* MEDIA QUERY IPHONE */
+
 @media screen and (max-width: 480px) {
   #rope { height: 200px; }
   #heart { width: 40px; height: 40px; }
@@ -154,15 +152,15 @@ canvas {
 <body>
 <div id="stage">
 
-  <!-- CORDA -->
+ 
   <div id="rope-container">
     <div id="rope"></div>
     <div id="heart"></div>
   </div>
 
-  <!-- BOTTONI -->
+
   <div id="buttons">
-    <div id="question">Vuoi essere il mio Valentino? 💖</div>
+    <div id="question">Vuoi essere il mio Valentino?</div>
     <div id="gif-container">
       <img src="giflove.gif" alt="love gif">
     </div>
@@ -172,7 +170,7 @@ canvas {
     </div>
   </div>
 
-  <!-- SCHERMATA FINALE -->
+
   <img id="final-img" src="card.png" alt="love image">
   <canvas id="confetti"></canvas>
 
@@ -195,14 +193,14 @@ rope.addEventListener("click", () => {
   }, 300);
 });
 
-// NO scappa
+
 noBtn.addEventListener("mouseover", () => {
   noBtn.style.position = "absolute";
   noBtn.style.left = Math.random() * (window.innerWidth - 120) + "px";
   noBtn.style.top = Math.random() * (window.innerHeight - 80) + "px";
 });
 
-// CORIANDOLI
+
 yesBtn.addEventListener("click", () => {
   buttons.style.display = "none";
   canvas.style.display = "block";
